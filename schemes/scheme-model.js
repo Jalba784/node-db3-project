@@ -18,13 +18,16 @@ function findSteps(schemeId) {
       .orderBy("st.step_number")
 }
 
+function add(scheme) {
+  return db("schemes").insert(scheme)
+}
 
 
 module.exports = {
   find,
   findById,
   findSteps,
-  // add,
+  add,
   // addStep,
   // update,
   // remove
