@@ -19,21 +19,29 @@ function findSteps(schemeId) {
 }
 
 function add(scheme) {
-  return db("schemes").insert(scheme).then((ownObj) => {
-    return  findById(ownObj[0])
-  })
-
-  // return db("schemes").insert(scheme)
+  return db("schemes")
+    .insert(scheme)
+    .then(ownObj => {
+      return findById(ownObj[0]);
+    });
 }
 
-function addStep() {}
+function addStep(step, scheme_id) {
+  const { id } = db("steps").insert({ ...step, scheme_id });
+  return db("steps").where({ id });
+}
+function update(changes, id) {
+  return db("schemes")
+    .where({ id })
+    .update(changes)
+}
 
 module.exports = {
   find,
   findById,
   findSteps,
   add,
-  addStep
-  // update,
-  // remove
+  addStep,
+  update
+  remove
 };
