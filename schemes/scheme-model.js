@@ -34,6 +34,10 @@ function update(changes, id) {
   return db("schemes")
     .where({ id })
     .update(changes)
+    .then(() => findById(id));
+}
+function remove(id) {
+  return db("schemes").where({id}).del()
 }
 
 module.exports = {
@@ -42,6 +46,6 @@ module.exports = {
   findSteps,
   add,
   addStep,
-  update
+  update,
   remove
 };
