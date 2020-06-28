@@ -27,17 +27,22 @@ function add(scheme) {
 }
 
 function addStep(step, scheme_id) {
-  const { id } = db("steps").insert({ ...step, scheme_id });
-  return db("steps").where({ id });
+  return db("steps")
+    .insert({ ...step, scheme_id })
+    .then(algo => db("steps").where({ id: algo[0] }));
 }
+
 function update(changes, id) {
   return db("schemes")
     .where({ id })
     .update(changes)
     .then(() => findById(id));
 }
+
 function remove(id) {
-  return db("schemes").where({id}).del()
+  return db("schemes")
+    .where({ id })
+    .del();
 }
 
 module.exports = {
